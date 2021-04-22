@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 const bankOne = [
   {
@@ -66,36 +66,7 @@ const bankOne = [
   },
 ];
 
-function StyledApp() {
-  return (
-    <div
-      style={{
-        backgroundColor: 'powderblue',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-      }}
-    >
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '100px 100px 100px',
-          gridTemplateRows: '100px 100px 100px',
-          gridGap: '50px',
-        }}
-      >
-        <App />
-      </div>
-    </div>
-  );
-}
-
-export default StyledApp;
-
 const App = (props) => {
-  const [color1, setColor] = useState('red');
-
   return (
     <React.Fragment>
       {bankOne.map(
@@ -108,11 +79,7 @@ const App = (props) => {
                 id={item.id}
                 keyTrigger={item.keyTrigger}
                 name={item.id}
-                style={color1}
-                function={console.log(item.color)}
-                color={item.color}
-                // , `${(color = item.color)}`
-                // color={item.color}
+                style={item.color}
               />
             </React.Fragment>
           )
@@ -122,22 +89,13 @@ const App = (props) => {
   );
 };
 
-// export default App;
+export default App;
 
 const Pad = (props) => {
-  // function handleColor() {
-  //   document.addEventListener('keydown', function (event) {
-  //     {
-  //       if (event.key === props.keyTrigger) {
-  //         return console.log(props.color);
-  //       } else {
-  //         return 'red';
-  //         // console.log('handleColor in progress');
-  //       }
-  //     }
-  //   });
-  // }
-  const hello = props.color;
+  function genericPlay(id) {
+    const audio = document.getElementById(id);
+    audio.play();
+  }
 
   function handleChange() {
     document.addEventListener('keydown', function (event) {
@@ -145,18 +103,15 @@ const Pad = (props) => {
         if (event.key === props.keyTrigger) {
           return document.getElementById(props.id).play();
         } else {
-          return null;
+          console.log('handleChange in progress');
         }
       }
     });
   }
 
   return (
-    <div style={{ backgroundColor: hello }}>
-      {/* <div style={{ backgroundColor: `${props.style}` }}> */}
-
+    <div>
       <button onKeyPress={handleChange()}>
-        {console.log(hello, 'change color')}
         {props.name}
         {props.color}
         {props.keyTrigger}
